@@ -1,0 +1,76 @@
+"""Bilingual strings."""
+
+STRINGS = {
+    "en": {
+        "title": "Lucky Slots",
+        "main_menu": "[P]lay  [H]elp  [S]ettings  S[c]ores  [Q]uit",
+        "choice": "Choice: ",
+        "bye": "Bye!",
+        "unknown": "Unknown choice.",
+        "help_title": "Help",
+        "help_text": "Spin three reels. Three symbols pay big, pairs pay double, any cherry refunds the bet. Enter bet, spin, or q.",
+        "press_enter": "Press Enter to continue...",
+        "settings": "Settings",
+        "settings_menu": "1.Language  2.Sound  3.Volume  4.Difficulty  [B]ack",
+        "lang": "Language",
+        "sound": "Sound",
+        "volume": "Volume",
+        "difficulty": "Difficulty",
+        "on": "on",
+        "off": "off",
+        "scores": "Scores",
+        "no_scores": "No scores yet.",
+        "name_prompt": "Name for score: ",
+        "saved": "Score saved.",
+        "not_saved": "Score not saved.",
+        "status": "Coins {coins} | Spins left {spins} | Default bet {bet}",
+        "prompt": "Bet amount (spin/q): ",
+        "invalid": "Invalid bet.",
+        "result": "Reels: {reels} | Win {win}",
+        "finished": "Finished with {coins} coins. Score {score}. Rating: {rating}",
+        "jackpot": "jackpot",
+        "winner": "winner",
+        "lucky": "lucky",
+        "bust": "bust",
+    },
+    "zh": {
+        "title": "幸运老虎机",
+        "main_menu": "[P]开始  [H]帮助  [S]设置  [C]排行  [Q]退出",
+        "choice": "选择：",
+        "bye": "再见！",
+        "unknown": "未知选择。",
+        "help_title": "帮助",
+        "help_text": "转动三列图案。三个相同大奖，一对翻倍，任意樱桃返还下注。输入下注额、spin 或 q。",
+        "press_enter": "按回车继续...",
+        "settings": "设置",
+        "settings_menu": "1.语言  2.音效  3.音量  4.难度  [B]返回",
+        "lang": "语言",
+        "sound": "音效",
+        "volume": "音量",
+        "difficulty": "难度",
+        "on": "开",
+        "off": "关",
+        "scores": "排行榜",
+        "no_scores": "暂无分数。",
+        "name_prompt": "输入名字保存分数：",
+        "saved": "分数已保存。",
+        "not_saved": "未保存分数。",
+        "status": "金币 {coins} | 剩余次数 {spins} | 默认下注 {bet}",
+        "prompt": "下注额（spin/q）：",
+        "invalid": "无效下注。",
+        "result": "转轮：{reels} | 赢得 {win}",
+        "finished": "结束时金币 {coins}。分数 {score}。评级：{rating}",
+        "jackpot": "头奖",
+        "winner": "赢家",
+        "lucky": "幸运",
+        "bust": "破产",
+    },
+}
+
+
+def t(lang, key, **kwargs):
+    text = STRINGS.get(lang, STRINGS["en"]).get(key, key)
+    try:
+        return text.format(**kwargs)
+    except Exception:
+        return text
