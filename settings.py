@@ -4,6 +4,7 @@ from pathlib import Path
 
 DEFAULT_PATH = Path.home() / ".lucky_slots_settings.json"
 DIFFICULTIES = ("easy", "normal", "hard")
+LANG_ALIASES = {"cn": "zh", "zh-CN": "zh", "zh-TW": "zh", "en-US": "en", "en-GB": "en"}
 DEFAULTS = {"lang": "zh", "sound": True, "volume": 1, "difficulty": "normal"}
 
 
@@ -18,6 +19,8 @@ def load(path=None):
             settings.update(data)
     except FileNotFoundError:
         pass
+    lang = settings.get("lang", DEFAULTS["lang"])
+    settings["lang"] = LANG_ALIASES.get(lang, lang)
     if settings["lang"] not in ("zh", "en"):
         settings["lang"] = DEFAULTS["lang"]
     if not isinstance(settings["sound"], bool):

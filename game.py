@@ -34,7 +34,7 @@ def show_scores(settings):
     if not scores:
         _print(t(settings["lang"], "no_scores"))
     for idx, item in enumerate(scores, 1):
-        _print(f"{idx}. {item.get('name', '?')} {item.get('score', 0)} ({item.get('difficulty', '?')})")
+        _print(f"{idx}. {item.get('name', t(settings['lang'], 'unknown_name'))} {item.get('score', 0)} ({item.get('difficulty', t(settings['lang'], 'unknown_difficulty'))})")
     input(t(settings["lang"], "press_enter"))
 
 
@@ -76,6 +76,15 @@ def play_round(settings):
         if text == "q":
             raise QuitGame()
         bet = core.parse_bet(text, cfg["bet"])
+        if bet is None:
+            _print(t(lang, "invalid"))
+            snd.incorrect()
+            continue
+        valid = core.validate_bet(state, bet)
+        if valid is not True:
+            _print(t(lang, valid))
+            snd.incorrect()
+            continue
         result = core.play_spin(state, bet)
         if result is None:
             _print(t(lang, "invalid"))

@@ -35,11 +35,29 @@ def payout(reels, bet):
 
 
 def can_bet(state, bet):
-    return isinstance(bet, int) and bet > 0 and bet <= state["coins"] and state["spins_left"] > 0
+    if not isinstance(bet, int) or bet <= 0:
+        return False
+    if bet > state["coins"]:
+        return False
+    if state["spins_left"] <= 0:
+        return False
+    return True
+
+
+def validate_bet(state, bet):
+    """Returns reason string if invalid, True if valid."""
+    if not isinstance(bet, int) or bet <= 0:
+        return "invalid"
+    if bet > state["coins"]:
+        return "too_high"
+    if state["spins_left"] <= 0:
+        return "no_spins"
+    return True
 
 
 def play_spin(state, bet, rng=None):
-    if not can_bet(state, bet):
+    valid = validate_bet(state, bet)
+    if valid is not True:
         return None
     state["coins"] -= bet
     reels = spin(rng)
